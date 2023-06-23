@@ -6,10 +6,6 @@ class ProductType
 {
     public $id;
     public $name;
-    public $percentageTax;
-
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
+    public $percentage_tax;
+    public $created_at;
 }
