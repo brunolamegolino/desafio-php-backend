@@ -2,14 +2,11 @@
 require_once 'vendor/autoload.php';
 require_once 'database.php';
 
-// Database::getInstance('sqlite');
+\Database::getInstance('sqlite');
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$method = $_SERVER['REQUEST_METHOD'];
 
 if ($uri == '/hello') {
-    // php_sapi_name
-    // echo php_sapi_name();
     require 'hello.php';
 } elseif ($uri == '/product') {
     require 'product/ProductController.php';
