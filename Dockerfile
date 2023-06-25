@@ -24,9 +24,6 @@ COPY . /app
 
 WORKDIR /app/src
 
-RUN composer install
-
 EXPOSE 8080
 
-# CMD ["php", "migration.php", "&&", "php", "-S", "0.0.0.0:8080", "router.php"]
-CMD sh -c "php migration.php && php -S 0.0.0.0:8080 router.php"
+CMD sh -c "composer install && php migration.php && php -S 0.0.0.0:8080 router.php"

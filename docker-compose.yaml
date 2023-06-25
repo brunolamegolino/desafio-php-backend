@@ -12,6 +12,8 @@ services:
       DB_PASSWD: ${DB_PASSWD}
       DB_NAME: ${DB_NAME}
       DEBUG: ${DEBUG}
+    depends_on:
+      - db
 
   db:
     image: postgres:latest
