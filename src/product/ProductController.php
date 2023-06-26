@@ -6,11 +6,10 @@ require_once 'ProductRepository.php';
 use Product\ProductService;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $name = $data['name'];
-    $description = $data['description'];
-    $price = $data['price'];
-    $productTypeId = $data['product_type_id'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    $productTypeId = $_POST['product_type_id'];
 
     $product = ProductService::createProduct($name, $description, $price, $productTypeId);
     header('Content-Type: application/json');

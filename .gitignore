@@ -1,5 +1,5 @@
 .devcontainer
+.vscode
 src/vendor
 src/tests/database.db
-src/test.http
-data
+src/http.rest
