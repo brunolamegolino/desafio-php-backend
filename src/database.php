@@ -16,10 +16,14 @@ class Database {
                     getenv('DB_USER'),
                     getenv('DB_PASSWD')
                 );
-            } else if ($name == 'sqlite') {
-                $db = new PDO('sqlite:tests/database.db');
-                $db->exec("DELETE FROM product_types");
+            } else if ($name == 'test') {
+                $db = new PDO(
+                    'pgsql:host=db;port=5432;dbname=' . getenv('DB_NAME') . '-test',
+                    getenv('DB_USER'),
+                    getenv('DB_PASSWD')
+                );
                 $db->exec("DELETE FROM products");
+                $db->exec("DELETE FROM product_types");
                 $db->exec("DELETE FROM sales");
                 $db->exec("DELETE FROM sale_products");
             } else {

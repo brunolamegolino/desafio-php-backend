@@ -3,10 +3,15 @@ support_namespace: Support
 suites:
     unit:
         path: .
+        actor: UnitTester
+        modules:
+            enabled:
+                - Asserts
 
 settings:
     shuffle: true
     lint: true
+
 paths:
     tests: tests
     output: tests/_output

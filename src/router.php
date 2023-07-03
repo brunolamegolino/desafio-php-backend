@@ -2,7 +2,9 @@
 require_once 'vendor/autoload.php';
 require_once 'database.php';
 
-\Database::getInstance('sqlite');
+\Database::getInstance('postgres');
+
+date_default_timezone_set('America/Sao_Paulo');
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 

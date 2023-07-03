@@ -9,11 +9,6 @@ RUN docker-php-ext-install zip
 RUN apk add postgresql-dev \
     && docker-php-ext-install pdo_pgsql pgsql
 
-RUN apk add sqlite sqlite-dev && \
-    docker-php-ext-install pdo_sqlite
-
-RUN sqlite3 tests/database.db
-
 RUN apk add -u \
     composer \
     php-xml
