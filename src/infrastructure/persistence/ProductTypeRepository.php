@@ -4,8 +4,8 @@ class ProductTypeRepository
 {
     private $db;
 
-    public function __construct(PDO $db) {
-        $this->db = $db;
+    public function __construct() {
+        $this->db = Database::getInstance()->getDb();
     }
     
     public function getProductTypeById($id) : ProductType | false {

@@ -11,10 +11,10 @@ class CreateProduct
         $this->productTypeRepository = $productTypeRepository;
     }
 
-    public function execute(ProductDTO $input)
+    public function execute(ProductDTO $input) : Product
     {
         $productType = $this->productTypeRepository->getProductTypeById($input->product_type_id);
-        $product = Product::create($input->name, $input->description, $input->price, $productType->id, $productType);
+        $product = Product::create((array) $input);
         return $this->productRepository->save($product);
     }
 }
