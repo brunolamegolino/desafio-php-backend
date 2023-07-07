@@ -20,19 +20,18 @@ $postgresTest = new PDO(
     getenv('DB_PASSWD')
 );
 
-$sqlProductTypes = 
-"CREATE TABLE IF NOT EXISTS product_types (
+$execSql = function ($sql) use ($postgres, $postgresTest) {
+    $postgres->exec($sql);
+    $postgresTest->exec($sql);
+};
+
+$execSql("CREATE TABLE IF NOT EXISTS product_types (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT,
     percentage_tax FLOAT,
-    created_at TIMESTAMP DEFAULT now()
-    )";
+    created_at TIMESTAMP DEFAULT now())");
 
-$postgres->exec($sqlProductTypes);
-$postgresTest->exec($sqlProductTypes);
-
-$sqlProducts = 
-"CREATE TABLE IF NOT EXISTS products (
+$execSql( "CREATE TABLE IF NOT EXISTS products (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT,
     price FLOAT,
@@ -40,29 +39,21 @@ $sqlProducts =
     product_type_id UUID REFERENCES product_types(id),
     images_path TEXT,
     created_at TIMESTAMP DEFAULT now()
-    )";
-    
-$postgres->exec($sqlProducts);
-$postgresTest->exec($sqlProducts);
+    )");
 
-$sqlSales = 
-"CREATE TABLE IF NOT EXISTS sales (
+$execSql("CREATE TABLE IF NOT EXISTS sales (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    price FLOAT,
+    total FLOAT,
     created_at TIMESTAMP DEFAULT now()
-    )";
+    )");
 
-$postgres->exec($sqlSales);
-$postgresTest->exec($sqlSales);
-
-$sqlSaleProducts = 
-"CREATE TABLE IF NOT EXISTS sale_products ( 
+$execSql("CREATE TABLE IF NOT EXISTS sale_products ( 
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     sale_id UUID REFERENCES sales(id),
     product_id UUID REFERENCES products(id)
-    )";
+    )");
 
-$postgres->exec($sqlSaleProducts);
-$postgresTest->exec($sqlSaleProducts);
+$execSql("ALTER TABLE sale_products ADD COLUMN IF NOT EXISTS purchase_price FLOAT");
+$execSql("ALTER TABLE sale_products ADD COLUMN IF NOT EXISTS quantity INTEGER");
 
 echo "Tables created successfully.\n";

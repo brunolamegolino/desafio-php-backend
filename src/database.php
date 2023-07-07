@@ -22,15 +22,12 @@ class Database {
                     getenv('DB_USER'),
                     getenv('DB_PASSWD')
                 );
-                $db->exec("DELETE FROM products");
-                $db->exec("DELETE FROM product_types");
-                $db->exec("DELETE FROM sales");
-                $db->exec("DELETE FROM sale_products");
             } else {
                 throw new \Exception('Database not found');
             }
 
             self::$instance = new Database($db);
+            self::$instance->eraseTestDatabase();
         }
 
         return self::$instance;
@@ -38,5 +35,15 @@ class Database {
 
     public function getDb() {
         return $this->db;
+    }
+
+    public function eraseTestDatabase() {
+        $databaseName = $this->db->query("SELECT current_database()")->fetchColumn();
+        if (strpos($databaseName, '-test') === true) {
+            $this->db->exec("DELETE FROM products");
+            $this->db->exec("DELETE FROM product_types");
+            $this->db->exec("DELETE FROM sales");
+            $this->db->exec("DELETE FROM sale_products");
+        }
     }
 }

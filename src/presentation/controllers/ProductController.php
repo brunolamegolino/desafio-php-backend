@@ -1,8 +1,4 @@
 <?php
-require_once 'application/services/ProductService.php';
-require_once 'infrastructure/persistence/ProductRepository.php';
-require_once 'domain/entities/Product.php';
-require_once 'domain/entities/ProductType.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $createProduct = new CreateProduct(

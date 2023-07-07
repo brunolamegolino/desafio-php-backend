@@ -10,6 +10,7 @@ class Product
     public ProductType|stdClass $productType;
     public string $images_path;
     public string $created_a='';
+    public int|null $quantity=null;
     
     private function __construct(array $product)
     {

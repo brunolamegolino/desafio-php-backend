@@ -12,12 +12,12 @@
 
 // echo phpinfo();
 
-echo 'variavel enviada '.($_POST['nome_do_campo'] ?? 'vazio');
+// echo 'variavel enviada '.($_POST['nome_do_campo'] ?? 'vazio');
 
-echo '
-<form method="post" action="hello">
-    <!-- Campos do formulário -->
-    <input type="text" name="nome_do_campo" />
-    <!-- Botão de envio -->
-    <input type="submit" value="Enviar" />
-</form>';
+// echo '
+// <form method="post" action="hello">
+//     <!-- Campos do formulário -->
+//     <input type="text" name="nome_do_campo" />
+//     <!-- Botão de envio -->
+//     <input type="submit" value="Enviar" />
+// </form>';
