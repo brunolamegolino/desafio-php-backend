@@ -1,10 +1,8 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $createProduct = new CreateProduct(
-        new ProductRepository(),
-        new ProductTypeRepository());
-    $product = $createProduct->execute(new ProductDTO(...$_POST));
+    $createProduct = new CreateProduct();
+    $product = $createProduct->execute(new ProductDTO(...$_POST, images: $_FILES ?? []));
     header('Content-Type: application/json');
     echo json_encode($product);
     

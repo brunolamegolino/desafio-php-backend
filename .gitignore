@@ -3,3 +3,4 @@
 src/vendor
 src/tests/database.db
 src/http.rest
+src/public/*

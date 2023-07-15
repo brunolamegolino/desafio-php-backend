@@ -6,6 +6,7 @@ require_once 'application/usecases/CreateProduct.php';
 require_once 'application/dtos/CreateSalesDTO.php';
 require_once 'application/dtos/ProductDTO.php';
 require_once 'application/services/ProductService.php';
+require_once 'application/services/ProductTypeService.php';
 require_once 'domain/entities/Sales.php';
 require_once 'domain/entities/Product.php';
 require_once 'domain/entities/ProductType.php';
@@ -23,9 +24,11 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: *');
 
-$_POST = json_decode(file_get_contents('php://input'), true);
+$_POST = $_POST
+    ? $_POST
+    : json_decode(file_get_contents('php://input'), true);
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = $_SERVER['REQUEST_URI'];
 
 try {
     if ($uri == '/hello') {
@@ -34,6 +37,14 @@ try {
         require 'presentation/controllers/ProductController.php';
     } elseif ($uri == '/sales') {
         require 'presentation/controllers/SalesController.php';
+    } elseif ($uri == '/product-type') {
+        require 'presentation/controllers/ProductTypeController.php';
+    } elseif (str_contains($uri, '/image/')) {
+        $imagePath = explode('/' , $uri);
+        $imagePath = end($imagePath);
+        $image = file_get_contents('public/'.$imagePath);
+        header('Content-Type: image/'.explode('.', $imagePath)[1]);
+        echo $image;
     } else {
         header('HTTP/1.1 404 Not Found');
         echo 'Page not found';

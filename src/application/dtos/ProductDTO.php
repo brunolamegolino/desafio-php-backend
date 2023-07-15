@@ -7,6 +7,7 @@ class ProductDTO
         public string $description,
         public float $price,
         public string $product_type_id,
-        public string $images_path='',    
+        public string $images_path='',
+        public array $images=[]    
     ) {}
 }

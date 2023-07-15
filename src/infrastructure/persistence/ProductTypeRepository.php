@@ -25,4 +25,11 @@ class ProductTypeRepository
         $productType->id = $return['id'];
         $productType->created_at = $return['created_at'];
     }
+
+    public function getProductTypes($ids=[]) : array {
+        $where = count($ids) > 0 ? "WHERE id in '".implode('\',\'', $ids)."')" :'';
+        $query = $this->db->query("SELECT * FROM product_types $where");
+        $query->setFetchMode(PDO::FETCH_CLASS, ProductType::class, ['', '', 0, 0]);
+        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE);
+    }
 }

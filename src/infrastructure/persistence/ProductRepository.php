@@ -39,4 +39,18 @@ class ProductRepository
     public function getProductsByIds(string $productsId) : array {
         return $this->getProducts($productsId);
     }
+
+    public function saveImage($image) : string {
+        $imagePath = uniqid().'.'.(explode('.', $image['name'])[1]);
+        move_uploaded_file($image['tmp_name'], 'public/'.$imagePath);
+        return $imagePath;
+    }
+
+    public function updateImagePath(string $productId, string $imagesPath) {
+        $this->db->query("UPDATE products SET images_path = '$imagesPath' WHERE id = '$productId'");
+    }
+
+    public function delete(string $productId) {
+        $this->db->query("DELETE FROM products WHERE id = '$productId'");
+    }
 }
