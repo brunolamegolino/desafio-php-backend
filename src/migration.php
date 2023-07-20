@@ -29,7 +29,7 @@ $execSql("CREATE TABLE IF NOT EXISTS product_types (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT,
     percentage_tax FLOAT,
-    created_at TIMESTAMP DEFAULT now())");
+    created_at TIMESTAMP DEFAULT now() + '-3 hours')");
 
 $execSql( "CREATE TABLE IF NOT EXISTS products (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -38,13 +38,13 @@ $execSql( "CREATE TABLE IF NOT EXISTS products (
     description TEXT,
     product_type_id UUID REFERENCES product_types(id),
     images_path TEXT,
-    created_at TIMESTAMP DEFAULT now()
+    created_at TIMESTAMP DEFAULT now() + '-3 hours'
     )");
 
 $execSql("CREATE TABLE IF NOT EXISTS sales (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     total FLOAT,
-    created_at TIMESTAMP DEFAULT now()
+    created_at TIMESTAMP DEFAULT now() + '-3 hours'
     )");
 
 $execSql("CREATE TABLE IF NOT EXISTS sale_products ( 
@@ -55,5 +55,14 @@ $execSql("CREATE TABLE IF NOT EXISTS sale_products (
 
 $execSql("ALTER TABLE sale_products ADD COLUMN IF NOT EXISTS purchase_price FLOAT");
 $execSql("ALTER TABLE sale_products ADD COLUMN IF NOT EXISTS quantity INTEGER");
+
+$execSql("CREATE TABLE IF NOT EXISTS login (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT now() + '-3 hours',
+    token TEXT UNIQUE NOT NULL ,
+    token_expiration_time TIMESTAMP NOT NULL DEFAULT now() + '-2 hours')");
 
 echo "Tables created successfully.\n";

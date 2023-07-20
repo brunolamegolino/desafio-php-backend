@@ -39,11 +39,12 @@ class Database {
 
     public function eraseTestDatabase() {
         $databaseName = $this->db->query("SELECT current_database()")->fetchColumn();
-        if (strpos($databaseName, '-test') === true) {
-            $this->db->exec("DELETE FROM products");
-            $this->db->exec("DELETE FROM product_types");
-            $this->db->exec("DELETE FROM sales");
+        if (strpos($databaseName, '-test') !== false) {
             $this->db->exec("DELETE FROM sale_products");
+            $this->db->exec("DELETE FROM products");
+            $this->db->exec("DELETE FROM sales");
+            $this->db->exec("DELETE FROM product_types");
+            $this->db->exec("DELETE FROM login");
         }
     }
 }
